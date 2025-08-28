@@ -1,285 +1,196 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, CalendarDays, Trophy, Users, Newspaper, ChevronRight, Instagram, Facebook, Youtube } from "lucide-react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ennerdalians FC</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="Ennerdalians_FC.png" alt="Ennerdalians FC Logo" />
+      <h1>Ennerdalians FC</h1>
+    </div>
+    <nav>
+      <a href="#fixtures">Fixtures</a>
+      <a href="#results">Results</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-/**
- * Ennerdalians FC – Single File React Template
- * --------------------------------------------------
- * • TailwindCSS for styling (no setup code needed in this canvas)
- * • shadcn/ui components for clean, accessible UI
- * • lucide-react icons and framer-motion for subtle animation
- *
- * QUICK START (in your project):
- * 1) Drop this component into /app/page.tsx (Next.js w/ App Router) or any React route.
- * 2) Put your logo at /public/logo.png (or update the src below).
- * 3) Replace placeholder text, images, and data with club content.
- */
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Welcome to Ennerdalians FC</h2>
+    <p>Striving for greatness on and off the pitch ⚽</p>
+  </section>
 
-const nav = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Teams & Fixtures", href: "#fixtures" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "News", href: "#news" },
-  { label: "Sponsorship", href: "#sponsors" },
-  { label: "Contact", href: "#contact" },
-];
+  <!-- Fixtures -->
+  <section id="fixtures">
+    <h2>Upcoming Fixtures</h2>
+    <ul id="fixtures-list"></ul>
+  </section>
 
+  <!-- Results -->
+  <section id="results">
+    <h2>Latest Results</h2>
+    <ul id="results-list"></ul>
+  </section>
+
+  <!-- News -->
+  <section id="news">
+    <h2>Club News</h2>
+    <div id="news-container"></div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: <a href="mailto:aubreymalapile@yahoo.com">aubreymalapile@yahoo.com</a></p>
+    <p>Phone: 083 415 8217</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Ennerdalians FC. All Rights Reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background: #f8f8f8;
+  color: #333;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #004080;
+  color: #fff;
+  padding: 1rem 2rem;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+}
+
+header .logo img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+header nav a {
+  color: #fff;
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  background: url("soccer-bg.jpg") center/cover no-repeat;
+  color: white;
+  padding: 100px 20px;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+/* Sections */
+section {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+section h2 {
+  color: #004080;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li {
+  background: #fff;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  background: #004080;
+  color: #fff;
+  padding: 10px;
+  margin-top: 30px;
+}
+// Dummy Data (replace with live updates later)
 const fixtures = [
-  { date: "Sat, 14 Sep 2025", opponent: "Protea United", venue: "Protea Glen Stadium", time: "15:00", home: true },
-  { date: "Sat, 21 Sep 2025", opponent: "Meadowlands FC", venue: "Meadowlands Arena", time: "16:00", home: false },
-  { date: "Sat, 28 Sep 2025", opponent: "Dobsonville Stars", venue: "Protea Glen Stadium", time: "14:00", home: true },
+  { opponent: "Protea United", date: "2025-09-01", venue: "Home" },
+  { opponent: "Soweto Stars", date: "2025-09-08", venue: "Away" },
 ];
 
-const squad = [
-  { name: "A. Mokoena", number: 1, position: "GK" },
-  { name: "T. Dlamini", number: 4, position: "CB" },
-  { name: "L. Khumalo", number: 7, position: "RW" },
-  { name: "S. Nkosi", number: 9, position: "ST" },
-  { name: "B. Mthembu", number: 10, position: "AM" },
-  { name: "K. Mokoena", number: 11, position: "LW" },
+const results = [
+  { opponent: "Orlando Juniors", score: "3-1", date: "2025-08-20" },
+  { opponent: "Dobsonville FC", score: "1-2", date: "2025-08-15" },
 ];
 
 const news = [
-  { title: "Match Report: Ennerdalians 3–1 Orlando West", summary: "Clinical second half seals the points at Ennerdale.", date: "02 Sep 2025" },
-  { title: "New Kit Reveal 2025/26", summary: "Bold green with orange trim—made for glory.", date: "25 Aug 2025" },
-  { title: "Trial Dates Announced", summary: "Open trials for U15–Senior squads this month.", date: "18 Aug 2025" },
+  { title: "Big Win Against Orlando Juniors!", body: "Ennerdalians secured a 3-1 victory in a thrilling match." },
+  { title: "New Training Kit Arrives", body: "Our players will now train in brand new kits sponsored by local partners." }
 ];
 
-export default function EnnerdaliansFCWebsite() {
-  return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100">
-      {/* Top Bar */}
-      <header className="sticky top-0 z-40 backdrop-blur bg-neutral-950/80 border-b border-neutral-800">
-        <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
-          <div className="flex items-center gap-3">
-            {/* Logo: replace /logo.png with your badge path. */}
-            <img src="/logo.png" alt="Ennerdalians FC" className="h-10 w-10 rounded-full ring-2 ring-emerald-600/60" />
-            <div>
-              <div className="text-sm tracking-widest text-emerald-400">FOOTBALL CLUB</div>
-              <div className="font-extrabold text-lg md:text-xl text-emerald-300">ENNERDALIANS</div>
-            </div>
-          </div>
-          <nav className="hidden md:flex gap-6 text-sm">
-            {nav.map((n) => (
-              <a key={n.href} href={n.href} className="hover:text-emerald-300" >{n.label}</a>
-            ))}
-          </nav>
-          <div className="hidden md:block">
-            <Button className="bg-emerald-600 hover:bg-emerald-500 rounded-2xl">Join the Club</Button>
-          </div>
-        </div>
-      </header>
+// Render Fixtures
+const fixturesList = document.getElementById("fixtures-list");
+fixtures.forEach(f => {
+  const li = document.createElement("li");
+  li.textContent = `${f.date} - vs ${f.opponent} (${f.venue})`;
+  fixturesList.appendChild(li);
+});
 
-      {/* Hero */}
-      <section id="home" className="relative overflow-hidden">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center px-4 py-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
-              Pride of <span className="text-emerald-400">Ennerdale</span>
-            </h1>
-            <p className="mt-4 text-neutral-300 max-w-prose">
-              Established in 2022, Ennerdalians Football Club is a community-driven team committed to excellence on and off the pitch.
-            </p>
-            <div className="mt-6 flex gap-3">
-              <Button className="bg-emerald-600 hover:bg-emerald-500 rounded-2xl">View Fixtures</Button>
-              <Button variant="outline" className="rounded-2xl border-neutral-700">Become a Sponsor</Button>
-            </div>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, scale: 0.98 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="relative">
-            <div className="aspect-video rounded-3xl bg-gradient-to-br from-emerald-900/40 via-neutral-900 to-neutral-900 border border-neutral-800 shadow-xl flex items-center justify-center">
-              {/* Replace with action photo */}
-              <img src="https://images.unsplash.com/photo-1518604666860-9ed391f0ef74?q=80&w=1400&auto=format&fit=crop" alt="Match action" className="h-full w-full object-cover rounded-3xl opacity-80" />
-            </div>
-          </motion.div>
-        </div>
-      </section>
+// Render Results
+const resultsList = document.getElementById("results-list");
+results.forEach(r => {
+  const li = document.createElement("li");
+  li.textContent = `${r.date} - vs ${r.opponent} : ${r.score}`;
+  resultsList.appendChild(li);
+});
 
-      {/* About */}
-      <section id="about" className="border-t border-neutral-800">
-        <div className="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-3 gap-6">
-          <Card className="bg-neutral-900/60 backdrop-blur border-neutral-800 rounded-2xl">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2"><Trophy className="h-5 w-5"/> Mission</CardTitle>
-            </CardHeader>
-            <CardContent className="text-neutral-300">To develop local talent and compete with integrity, discipline and flair.</CardContent>
-          </Card>
-          <Card className="bg-neutral-900/60 backdrop-blur border-neutral-800 rounded-2xl">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2"><Users className="h-5 w-5"/> Values</CardTitle>
-            </CardHeader>
-            <CardContent className="text-neutral-300">Community, respect, resilience, ambition—on the field and in life.</CardContent>
-          </Card>
-          <Card className="bg-neutral-900/60 backdrop-blur border-neutral-800 rounded-2xl">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2"><CalendarDays className="h-5 w-5"/> Founded</CardTitle>
-            </CardHeader>
-            <CardContent className="text-neutral-300">Established in 2022 • Based in Ennerdale, South of Johannesburg</CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Teams & Fixtures */}
-      <section id="fixtures" className="border-t border-neutral-800">
-        <div className="max-w-6xl mx-auto px-4 py-14">
-          <div className="flex items-end justify-between gap-4">
-            <h2 className="text-2xl md:text-3xl font-extrabold">Teams & Fixtures</h2>
-            <Button variant="outline" className="rounded-2xl border-neutral-700">Full Schedule</Button>
-          </div>
-
-          {/* Squad */}
-          <div className="mt-8 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {squad.map((p) => (
-              <Card key={p.number} className="bg-neutral-900/60 border-neutral-800 rounded-2xl">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base flex items-center justify-between">
-                    <span>{p.name}</span>
-                    <span className="text-emerald-400">#{p.number}</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0 text-neutral-400">{p.position}</CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* Fixture List */}
-          <div className="mt-10 grid md:grid-cols-3 gap-4">
-            {fixtures.map((f, i) => (
-              <Card key={i} className="bg-neutral-900/60 border-neutral-800 rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center justify-between">
-                    <span>{f.opponent}</span>
-                    <span className="text-xs text-neutral-400">{f.home ? "HOME" : "AWAY"}</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-neutral-300 space-y-1">
-                  <div className="text-sm">{f.date}</div>
-                  <div className="text-sm">Kick-off: {f.time}</div>
-                  <div className="text-sm flex items-center gap-2"><MapPin className="h-4 w-4"/> {f.venue}</div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery */}
-      <section id="gallery" className="border-t border-neutral-800">
-        <div className="max-w-6xl mx-auto px-4 py-14">
-          <h2 className="text-2xl md:text-3xl font-extrabold">Gallery</h2>
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[1,2,3,4,5,6,7,8].map((i) => (
-              <div key={i} className="aspect-square rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-900/60">
-                <img
-                  className="h-full w-full object-cover hover:scale-105 transition-transform"
-                  src={`https://source.unsplash.com/random/800x800/?soccer,${i}`}
-                  alt={`Gallery ${i}`}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* News */}
-      <section id="news" className="border-t border-neutral-800">
-        <div className="max-w-6xl mx-auto px-4 py-14">
-          <div className="flex items-end justify-between gap-4">
-            <h2 className="text-2xl md:text-3xl font-extrabold">Latest News</h2>
-            <Button variant="outline" className="rounded-2xl border-neutral-700">
-              View All <ChevronRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-          <div className="mt-6 grid md:grid-cols-3 gap-4">
-            {news.map((n, i) => (
-              <Card key={i} className="bg-neutral-900/60 border-neutral-800 rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Newspaper className="h-5 w-5"/> {n.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-neutral-300 text-sm space-y-2">
-                  <p>{n.summary}</p>
-                  <p className="text-neutral-500">{n.date}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Sponsorship */}
-      <section id="sponsors" className="border-t border-neutral-800">
-        <div className="max-w-6xl mx-auto px-4 py-14">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-extrabold">Become a Sponsor</h2>
-              <p className="mt-3 text-neutral-300 max-w-prose">
-                Partner with Ennerdalians FC to support community football and unlock brand visibility in Ennerdale and beyond. Packages include kit branding, matchday boards, social content and more.
-              </p>
-              <div className="mt-6 flex gap-3">
-                <Button className="bg-emerald-600 hover:bg-emerald-500 rounded-2xl">Download Prospectus</Button>
-                <Button variant="outline" className="rounded-2xl border-neutral-700">Enquire Now</Button>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              {["Your Logo", "Brand", "Partner", "Supporter"].map((s, i) => (
-                <div key={i} className="h-28 rounded-2xl border border-neutral-800 bg-neutral-900/60 flex items-center justify-center text-neutral-400">{s}</div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section id="contact" className="border-t border-neutral-800">
-        <div className="max-w-6xl mx-auto px-4 py-14">
-          <h2 className="text-2xl md:text-3xl font-extrabold">Contact Us</h2>
-          <div className="mt-6 grid md:grid-cols-2 gap-8">
-            <Card className="bg-neutral-900/60 border-neutral-800 rounded-2xl">
-              <CardHeader>
-                <CardTitle>Send a Message</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form className="grid gap-3">
-                  <Input placeholder="Full Name" />
-                  <Input type="email" placeholder="Email" />
-                  <Input placeholder="Phone" />
-                  <Textarea rows={5} placeholder="Your message..." />
-                  <Button type="submit" className="bg-emerald-600 hover:bg-emerald-500 rounded-2xl">Send</Button>
-                </form>
-              </CardContent>
-            </Card>
-
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 text-neutral-300"><Mail className="h-5 w-5"/> ennerdaliansfc@gmail.com</div>
-              <div className="flex items-center gap-3 text-neutral-300"><Phone className="h-5 w-5"/> +27 76 709 0343 </div>
-              <div className="flex items-center gap-3 text-neutral-300"><MapPin className="h-5 w-5"/> 15 Hyde Street, Lenasia South, Johannesburg</div>
-              <div className="flex items-center gap-4 pt-2">
-                <a href="#" aria-label="Instagram" className="p-2 rounded-xl border border-neutral-800 hover:border-emerald-500"><Instagram className="h-5 w-5"/></a>
-                <a href="#" aria-label="Facebook" className="p-2 rounded-xl border border-neutral-800 hover:border-emerald-500"><Facebook className="h-5 w-5"/></a>
-                <a href="#" aria-label="YouTube" className="p-2 rounded-xl border border-neutral-800 hover:border-emerald-500"><Youtube className="h-5 w-5"/></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-neutral-800">
-        <div className="max-w-6xl mx-auto px-4 py-8 text-sm text-neutral-400 flex flex-col md:flex-row items-center justify-between gap-2">
-          <div>© {new Date().getFullYear()} Ennerdalians Football Club. All rights reserved.</div>
-          <div className="flex items-center gap-3">
-            <span>Est. 2022</span>
-            <span className="text-neutral-600">|</span>
-            <a href="#contact" className="hover:text-emerald-300">Contact</a>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
+// Render News
+const newsContainer = document.getElementById("news-container");
+news.forEach(n => {
+  const div = document.createElement("div");
+  div.classList.add("news-item");
+  div.innerHTML = `<h3>${n.title}</h3><p>${n.body}</p>`;
+  newsContainer.appendChild(div);
+});
